@@ -4,9 +4,16 @@ import processing.core.PApplet;
 
 public class Main extends PApplet {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	private Logica logica;
 
+	@Override
+	public void setup() {
+		size(1200, 700);
+		logica = new Logica(this);
 	}
 
+	@Override
+	public void draw() {
+		logica.pintar();
+	}
 }
