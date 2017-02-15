@@ -9,6 +9,7 @@ public class Main extends PApplet {
 	@Override
 	public void setup() {
 		size(1200, 700);
+		textAlign(CENTER, CENTER);
 		logica = new Logica(this);
 	}
 
