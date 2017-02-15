@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -82,6 +83,7 @@ public class Logica implements Observer, Runnable {
 			if (mensaje.contains("values")) {
 				controlCliente.enviarMensaje("id:" + clientes.size());
 				controlCliente.enviarMensaje("color:" + (int) (Math.random() * 360));
+				reenviarMensaje("mas", controlCliente);
 			}
 
 			if (moviendo) {
@@ -96,6 +98,18 @@ public class Logica implements Observer, Runnable {
 					clientes.get(controlCliente.getId() + 1).enviarMensaje("muevase");
 				}
 			}
+		}
+	}
+
+	private void reenviarMensaje(String mensaje, Comunicacion remitente) {
+		int reenvios = 0;
+		for (Iterator<Comunicacion> iterator = clientes.iterator(); iterator.hasNext();) {
+			Comunicacion com = (Comunicacion) iterator.next();
+			if (!com.equals(remitente)) {
+				com.enviarMensaje(mensaje);
+				reenvios++;
+			}
+
 		}
 	}
 

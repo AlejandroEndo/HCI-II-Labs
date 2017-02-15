@@ -18,13 +18,13 @@ public class Comunicacion extends Observable implements Runnable {
 		this.s = s;
 		this.id = id;
 
-		conectado = false;
+		conectado = true;
 	}
 
 	@Override
 	public void run() {
 		// Saludo al cliente
-		enviarMensaje("Hola Cliente");
+		enviarMensaje("Hola cliente");
 
 		while (conectado) {
 			recibirMensaje();
