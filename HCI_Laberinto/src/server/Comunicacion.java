@@ -45,7 +45,7 @@ public class Comunicacion extends Observable implements Runnable {
 
 			String mensaje = dis.readUTF();
 
-			System.out.println("[CONTROL CLIENTE " + id + "]: Se recibio " + mensaje + "del cliente " + id);
+			System.out.println("[CONTROL CLIENTE " + id + "]: Se recibio " + mensaje + " del cliente " + id);
 
 			setChanged();
 			notifyObservers(mensaje);

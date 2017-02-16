@@ -98,6 +98,35 @@ public class Logica implements Observer, Runnable {
 					clientes.get(controlCliente.getId() + 1).enviarMensaje("muevase");
 				}
 			}
+
+			if (mensaje.contains("up")) {
+				if (controlCliente.getId() == clientes.size() - 1) {
+					clientes.get(0).enviarMensaje("up");
+				} else {
+					clientes.get(controlCliente.getId() + 1).enviarMensaje("up");
+				}
+			}
+			if (mensaje.contains("down")) {
+				if (controlCliente.getId() == clientes.size() - 1) {
+					clientes.get(0).enviarMensaje("down");
+				} else {
+					clientes.get(controlCliente.getId() + 1).enviarMensaje("down");
+				}
+			}
+			if (mensaje.contains("left")) {
+				if (controlCliente.getId() == clientes.size() - 1) {
+					clientes.get(0).enviarMensaje("left");
+				} else {
+					clientes.get(controlCliente.getId() + 1).enviarMensaje("left");
+				}
+			}
+			if (mensaje.contains("right")) {
+				if (controlCliente.getId() == clientes.size() - 1) {
+					clientes.get(0).enviarMensaje("right");
+				} else {
+					clientes.get(controlCliente.getId() + 1).enviarMensaje("right");
+				}
+			}
 		}
 	}
 

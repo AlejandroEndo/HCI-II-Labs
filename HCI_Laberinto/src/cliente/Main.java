@@ -15,6 +15,12 @@ public class Main extends PApplet {
 
 	@Override
 	public void draw() {
+		background(255);
 		logica.pintar();
+	}
+	
+	@Override
+	public void keyPressed() {
+		logica.key();
 	}
 }
