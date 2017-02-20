@@ -82,14 +82,13 @@ public class Logica implements Observer, Runnable {
 
 			if (mensaje.contains("values")) {
 				controlCliente.enviarMensaje("id:" + clientes.size());
-				controlCliente.enviarMensaje("color:" + (int) (Math.random() * 360));
 				reenviarMensaje("mas", controlCliente);
 			}
 
-			if (moviendo) {
-				controlCliente.enviarMensaje("muevase");
-				moviendo = false;
-			}
+//			if (moviendo) {
+//				controlCliente.enviarMensaje("muevase");
+//				moviendo = false;
+//			}
 
 			if (mensaje.contains("acabe")) {
 				if (controlCliente.getId() == clientes.size() - 1) {
@@ -138,7 +137,6 @@ public class Logica implements Observer, Runnable {
 				com.enviarMensaje(mensaje);
 				reenvios++;
 			}
-
 		}
 	}
 

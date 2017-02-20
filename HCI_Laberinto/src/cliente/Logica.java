@@ -62,11 +62,11 @@ public class Logica implements Observer {
 
 		app.text("soy " + id + "\n y hay " + conectados, app.width / 2, app.height - 50);
 		if (movible) {
-			app.fill(h, 100, 100);
+			// app.fill(h, 100, 100);
 			// app.ellipse(x, y, 50, 50);
-			//x += 5;
+			// x += 5;
 		}
-		//validar();
+		// validar();
 	}
 
 	private void validar() {
@@ -96,34 +96,32 @@ public class Logica implements Observer {
 				System.out.println(id);
 			}
 
-			if (mensaje.contains("color")) {
-				String[] partes = mensaje.split(":");
-				h = Integer.parseInt(partes[1]);
-				System.out.println(h);
-			}
-
 			if (mensaje.contains("mas")) {
 				conectados++;
 			}
 
-			if (mensaje.contains("muevase")) {
-				movible = true;
-			}
+			// if (mensaje.contains("muevase")) {
+			// movible = true;
+			// }
 
 			if (mensaje.contains("up")) {
 				dir = 4;
+				movil = true;
 			}
 
 			if (mensaje.contains("down")) {
 				dir = 1;
+				movil = true;
 			}
 
 			if (mensaje.contains("left")) {
 				dir = 2;
+				movil = true;
 			}
 
 			if (mensaje.contains("right")) {
 				dir = 3;
+				movil = true;
 			}
 		}
 
@@ -188,6 +186,7 @@ public class Logica implements Observer {
 									movil = false;
 								}
 							}
+							dir = 0;
 							break;
 
 						case 1:
@@ -201,6 +200,7 @@ public class Logica implements Observer {
 									movil = false;
 								}
 							}
+							dir = 0;
 							break;
 
 						case 2:
@@ -214,6 +214,7 @@ public class Logica implements Observer {
 									movil = false;
 								}
 							}
+							dir = 0;
 							break;
 
 						case 3:
@@ -227,6 +228,7 @@ public class Logica implements Observer {
 									movil = false;
 								}
 							}
+							dir = 0;
 							break;
 						}
 					}
@@ -242,25 +244,25 @@ public class Logica implements Observer {
 		case PConstants.UP:
 			// dir = 4;
 			com.enviarMensaje("up");
-			movil = true;
+			// movil = true;
 			break;
 
 		case PConstants.DOWN:
 			// dir = 1;
 			com.enviarMensaje("down");
-			movil = true;
+			// movil = true;
 			break;
 
 		case PConstants.LEFT:
 			// dir = 2;
 			com.enviarMensaje("left");
-			movil = true;
+			// movil = true;
 			break;
 
 		case PConstants.RIGHT:
 			// dir = 3;
 			com.enviarMensaje("right");
-			movil = true;
+			// movil = true;
 			break;
 		}
 	}
