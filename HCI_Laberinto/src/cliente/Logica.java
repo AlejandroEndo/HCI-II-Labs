@@ -48,10 +48,6 @@ public class Logica implements Observer {
 	private boolean movil = true;
 
 	private float s;
-	private float x;
-	private float y;
-
-	private boolean movible;
 
 	public Logica(PApplet app) {
 		this.app = app;
@@ -62,7 +58,7 @@ public class Logica implements Observer {
 		new Thread(com).start();
 		com.addObserver(this);
 
-		movible = false;
+		movil = false;
 
 		s = 30;
 	}
@@ -75,19 +71,11 @@ public class Logica implements Observer {
 			matrix();
 
 		app.text("soy " + id + "\n y hay " + conectados, app.width / 2, app.height - 50);
-		if (movible) {
-			// app.fill(h, 100, 100);
-			// app.ellipse(x, y, 50, 50);
-			// x += 5;
-		}
-		// validar();
-	}
-
-	private void validar() {
-		if (x >= app.width + 25) {
-			com.enviarMensaje("acabe");
-			movible = false;
-			x = 0;
+		if (!movil) {
+			app.fill(0, 100);
+			app.rect(500, 0, 700, 700);
+			app.fill(255, 255);
+			app.text("Esperando instrucciones\nde tu aliado\n...", 850, app.height / 2);
 		}
 	}
 
@@ -106,17 +94,11 @@ public class Logica implements Observer {
 				String[] partes = mensaje.split(":");
 				id = Integer.parseInt(partes[1]);
 				conectados = id;
-				y = id * 100;
-				System.out.println(id);
 			}
 
 			if (mensaje.contains("mas")) {
 				conectados++;
 			}
-
-			// if (mensaje.contains("muevase")) {
-			// movible = true;
-			// }
 
 			if (mensaje.contains("up")) {
 				dir = 4;
@@ -137,8 +119,23 @@ public class Logica implements Observer {
 				dir = 3;
 				movil = true;
 			}
-		}
 
+			if (mensaje.contains("arriba")) {
+				pantalla.setConfianza(1);
+			}
+
+			if (mensaje.contains("derecha")) {
+				pantalla.setConfianza(2);
+			}
+
+			if (mensaje.contains("abajo")) {
+				pantalla.setConfianza(3);
+			}
+
+			if (mensaje.contains("izquierda")) {
+				pantalla.setConfianza(4);
+			}
+		}
 	}
 
 	private void matrix() {
@@ -186,7 +183,10 @@ public class Logica implements Observer {
 			for (int i = 0; i < 8; i++) {
 				if (movil) {
 					if (matrix[j][i] == 3) {
-						pantalla.setPos(matrixAImage[j][i]);
+						if (id == 1)
+							pantalla.setPos(matrixBImage[j][i]);
+						else
+							pantalla.setPos(matrixAImage[j][i]);
 						switch (dir) {
 
 						case 4:
@@ -279,6 +279,60 @@ public class Logica implements Observer {
 			com.enviarMensaje("right");
 			// movil = true;
 			break;
+		}
+	}
+
+	public void click() {
+		// System.out.println("X: " + app.mouseX + "\nY: " + app.mouseY);
+
+		if (!movil) {
+			// UP MESSAGE
+			if (app.mouseX > 142 && app.mouseX < 203 && app.mouseY > 444 && app.mouseY < 492) {
+				com.enviarMensaje("arriba");
+				// System.out.println("ARRIBA");
+			}
+
+			// RIGHT MESSAGE
+			if (app.mouseX > 220 && app.mouseX < 270 && app.mouseY > 514 && app.mouseY < 573) {
+				com.enviarMensaje("derecha");
+				// System.out.println("ARRIBA");
+			}
+
+			// DOWN MESSAGE
+			if (app.mouseX > 142 && app.mouseX < 203 && app.mouseY > 588 && app.mouseY < 639) {
+				com.enviarMensaje("abajo");
+				// System.out.println("ARRIBA");
+			}
+
+			// LEFT MESSAGE
+			if (app.mouseX > 77 && app.mouseX < 132 && app.mouseY > 512 && app.mouseY < 572) {
+				com.enviarMensaje("izquierda");
+				// System.out.println("ARRIBA");
+			}
+		} else {
+			// UP
+			if (app.mouseX > 735 && app.mouseX < 965 && app.mouseY > 0 && app.mouseY < 235) {
+				System.out.println("ARRIBA");
+				com.enviarMensaje("up");
+			}
+
+			// DOWN
+			if (app.mouseX > 735 && app.mouseX < 965 && app.mouseY > 470 && app.mouseY < 700) {
+				System.out.println("ABAJO");
+				com.enviarMensaje("down");
+			}
+
+			// LEFT
+			if (app.mouseX > 142 && app.mouseX < 735 && app.mouseY > 235 && app.mouseY < 470) {
+				System.out.println("IZQUIERDA");
+				com.enviarMensaje("left");
+			}
+
+			// RIGHT
+			if (app.mouseX > 965 && app.mouseX < 1200 && app.mouseY > 235 && app.mouseY < 470) {
+				System.out.println("DERECHA");
+				com.enviarMensaje("rigth");
+			}
 		}
 	}
 

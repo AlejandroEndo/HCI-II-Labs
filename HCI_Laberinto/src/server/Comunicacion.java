@@ -3,6 +3,8 @@ package server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Observable;
 
@@ -48,7 +50,8 @@ public class Comunicacion extends Observable implements Runnable {
 			System.out.println("[CONTROL CLIENTE " + id + "]: Se recibio " + mensaje + " del cliente " + id);
 
 			setChanged();
-			notifyObservers(mensaje);
+			//notifyObservers(mensaje);
+			notifyObservers(recibir());
 		} catch (IOException e) {
 			System.err.println("[CONTROL CLIENTE" + id + "] Se perdio coexion con el cliente");
 
@@ -97,6 +100,26 @@ public class Comunicacion extends Observable implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void enviar(Object object) {
+		try {
+			ObjectOutputStream oos;
+			oos = new ObjectOutputStream(s.getOutputStream());
+			oos.writeObject(object);
+			oos.flush();
+		} catch (IOException e) {
+
+		}
+	}
+
+	public Object recibir() throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+		Object object = ois.readObject();
+		return object;
+	}
+	
+		
+
 
 	public int getId() {
 		return id;

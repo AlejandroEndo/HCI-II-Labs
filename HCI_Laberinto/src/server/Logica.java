@@ -85,11 +85,6 @@ public class Logica implements Observer, Runnable {
 				reenviarMensaje("mas", controlCliente);
 			}
 
-//			if (moviendo) {
-//				controlCliente.enviarMensaje("muevase");
-//				moviendo = false;
-//			}
-
 			if (mensaje.contains("acabe")) {
 				if (controlCliente.getId() == clientes.size() - 1) {
 					clientes.get(0).enviarMensaje("muevase");
@@ -124,6 +119,38 @@ public class Logica implements Observer, Runnable {
 					clientes.get(0).enviarMensaje("right");
 				} else {
 					clientes.get(controlCliente.getId() + 1).enviarMensaje("right");
+				}
+			}
+			
+			if (mensaje.contains("arriba")) {
+				if (controlCliente.getId() == clientes.size() - 1) {
+					clientes.get(0).enviarMensaje("arriba");
+				} else {
+					clientes.get(controlCliente.getId() + 1).enviarMensaje("arriba");
+				}
+			}
+			
+			if (mensaje.contains("derecha")) {
+				if (controlCliente.getId() == clientes.size() - 1) {
+					clientes.get(0).enviarMensaje("derecha");
+				} else {
+					clientes.get(controlCliente.getId() + 1).enviarMensaje("derecha");
+				}
+			}
+			
+			if (mensaje.contains("abajo")) {
+				if (controlCliente.getId() == clientes.size() - 1) {
+					clientes.get(0).enviarMensaje("abajo");
+				} else {
+					clientes.get(controlCliente.getId() + 1).enviarMensaje("abajo");
+				}
+			}
+			
+			if (mensaje.contains("izquierda")) {
+				if (controlCliente.getId() == clientes.size() - 1) {
+					clientes.get(0).enviarMensaje("izquierda");
+				} else {
+					clientes.get(controlCliente.getId() + 1).enviarMensaje("izquierda");
 				}
 			}
 		}

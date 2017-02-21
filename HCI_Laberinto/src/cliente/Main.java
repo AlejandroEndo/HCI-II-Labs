@@ -10,6 +10,7 @@ public class Main extends PApplet {
 	public void setup() {
 		size(1200, 700);
 		textAlign(CENTER, CENTER);
+		noStroke();
 		logica = new Logica(this);
 	}
 
@@ -22,5 +23,10 @@ public class Main extends PApplet {
 	@Override
 	public void keyPressed() {
 		logica.key();
+	}
+	
+	@Override
+	public void mousePressed() {
+		logica.click();
 	}
 }

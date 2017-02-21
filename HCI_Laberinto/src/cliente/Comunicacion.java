@@ -3,6 +3,8 @@ package cliente;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -84,4 +86,19 @@ public class Comunicacion extends Observable implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	public void enviar(Object object) {
+		try {
+			ObjectOutputStream oos = new ObjectOutputStream(s.getOutputStream());
+			oos.writeObject(object);
+			oos.flush();
+		} catch (IOException e) {
+		}
+	}
+
+	public Object recibir() throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+		Object object = ois.readObject();
+		return object;
+	}
+	
 }
