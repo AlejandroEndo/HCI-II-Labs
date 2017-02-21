@@ -12,6 +12,8 @@ public class Logica implements Observer {
 
 	static Comunicacion com;
 
+	private Pantalla pantalla;
+
 	private int[][] matrixA = { { 0, 0, 5, 0, 5, 0, 1, 4 }, { 5, 2, 2, 1, 2, 1, 2, 0 }, { 0, 1, 0, 0, 1, 0, 2, 1 },
 			{ 5, 2, 2, 1, 2, 0, 1, 0 }, { 0, 0, 1, 0, 2, 1, 2, 1 }, { 1, 1, 0, 0, 1, 0, 0, 0 },
 			{ 1, 0, 1, 1, 2, 1, 2, 1 }, { 3, 1, 1, 0, 5, 0, 5, 0 } };
@@ -27,6 +29,14 @@ public class Logica implements Observer {
 	private int[][] matrixBDir = { { 4, 0, 0, 5, 0, 0, 5, 0 }, { 1, 1, 0, 1, 0, 0, 1, 0 }, { 0, 2, 1, 2, 1, 1, 2, 5 },
 			{ 1, 2, 0, 1, 0, 0, 1, 0 }, { 0, 1, 0, 2, 1, 2, 2, 5 }, { 1, 2, 0, 1, 0, 1, 0, 0 },
 			{ 0, 2, 1, 2, 1, 2, 0, 1 }, { 0, 5, 0, 5, 0, 1, 3, 1 } };
+
+	private int[][] matrixAImage = { { 0, 0, 1, 0, 1, 0, 4, 2 }, { 2, 9, 7, 2, 11, 2, 10, 0 },
+			{ 0, 1, 0, 0, 1, 0, 8, 2 }, { 2, 7, 9, 2, 10, 0, 1, 0 }, { 0, 0, 1, 0, 8, 2, 7, 2 },
+			{ 4, 2, 0, 0, 1, 0, 0, 0 }, { 1, 0, 4, 2, 11, 2, 9, 2 }, { 3, 2, 6, 0, 1, 0, 1, 0 } };
+
+	private int[][] matrixBImage = { { 5, 0, 0, 1, 0, 0, 1, 0 }, { 3, 5, 0, 1, 0, 0, 1, 0 },
+			{ 0, 8, 2, 11, 2, 2, 11, 2 }, { 2, 10, 0, 1, 0, 0, 1, 0 }, { 0, 1, 0, 8, 2, 9, 7, 2 },
+			{ 2, 10, 0, 1, 0, 1, 0, 0 }, { 0, 8, 2, 11, 2, 10, 0, 1 }, { 0, 1, 0, 1, 0, 3, 2, 6 } };
 
 	private int[][] matrix = new int[8][8];
 	private int[][] matrixDir = new int[8][8];
@@ -46,6 +56,8 @@ public class Logica implements Observer {
 	public Logica(PApplet app) {
 		this.app = app;
 
+		pantalla = new Pantalla(app);
+
 		com = new Comunicacion();
 		new Thread(com).start();
 		com.addObserver(this);
@@ -58,7 +70,9 @@ public class Logica implements Observer {
 	public void pintar() {
 		app.fill(0);
 
-		matrix();
+		pantalla.draw();
+		if (pantalla.getPantalla() == 2)
+			matrix();
 
 		app.text("soy " + id + "\n y hay " + conectados, app.width / 2, app.height - 50);
 		if (movible) {
@@ -154,7 +168,6 @@ public class Logica implements Observer {
 
 				case 3:
 					app.fill(0, 255, 255);
-					app.ellipse(i * s + 0, j * s + 0, s, s);
 					break;
 
 				case 4:
@@ -165,7 +178,7 @@ public class Logica implements Observer {
 					app.fill(255, 0, 0);
 					break;
 				}
-				app.rect(i * s, j * s, s, s);
+				app.rect(i * s + 70, j * s + 70, s, s);
 			}
 		}
 
@@ -173,6 +186,7 @@ public class Logica implements Observer {
 			for (int i = 0; i < 8; i++) {
 				if (movil) {
 					if (matrix[j][i] == 3) {
+						pantalla.setPos(matrixAImage[j][i]);
 						switch (dir) {
 
 						case 4:
@@ -239,6 +253,7 @@ public class Logica implements Observer {
 
 	public void key() {
 
+		pantalla.setPantalla(pantalla.getPantalla() + 1);
 		switch (app.keyCode) {
 
 		case PConstants.UP:
