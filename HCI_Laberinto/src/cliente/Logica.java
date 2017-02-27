@@ -5,7 +5,7 @@ import java.util.Observer;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-
+// NO ENTIENDO UNA MIERDA! :D
 public class Logica implements Observer {
 
 	private PApplet app;

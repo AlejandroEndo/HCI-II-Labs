@@ -1,5 +1,5 @@
 package cliente;
 
-public class Intruccion {
+public class Instruccion {
 
 }

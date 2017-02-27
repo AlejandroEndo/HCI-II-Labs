@@ -17,7 +17,7 @@ public class Comunicacion extends Observable implements Runnable {
 
 	public Comunicacion() {
 		try {
-			s = new Socket(InetAddress.getByName("127.0.0.1"), 5666);
+			s = new Socket(InetAddress.getByName("192.168.0.106"), 5666);
 			conectado = true;
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

@@ -10,12 +10,18 @@ public class Mensaje implements Serializable {
 
 	private String dir;
 
-	public Mensaje(int x, int y) {
+	private String tipo;
+	// el tipo en el mensaje, puede ayudar a identificar
+	// si el mensaje es una indicacion , una direccion, etc.
+	// y en la logica hacer acciones dependiendo del tipo de mensaje
+
+	public Mensaje(String tipo, int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.tipo = tipo;
 	}
 
-	public Mensaje(String dir) {
+	public Mensaje(String tipo, String dir) {
 		this.dir = dir;
 	}
 
@@ -30,5 +36,5 @@ public class Mensaje implements Serializable {
 	public String getDir() {
 		return dir;
 	}
-	
+
 }
